@@ -1,0 +1,61 @@
+OVERVIEW:
+
+This program (arcade) contains the project folders for all other projects that it launches.
+It creates an instance of the App class, launching the program. This way, arcade can import and launch
+any number of programs, with maximum abstraction. It only has access to the highest level of the program,
+and as such, is unable to affect anything within the program.
+
+arcade Classes:
+App: launches arcade, creates PaneOrganizer
+PaneOrganizer: creates and organizes Panes/Buttons that launch various App classes
+
+flappybird/twoplayerflappy Classes:
+App: launches flappybird, creates PaneOrganizer
+PaneOrganizer:
+* prepares buttons, labels, etc.
+* creates Game
+Game:
+* Controls the logic of the game
+* Contains the timeline, calling various actions on birds and pipes
+* Contains a list of pipes and a list of birds, uses methods to move/create those
+* Checks for collisions, acts accordingly if collision occurs
+Bird:
+* Graphically represents bird, using Circles and Polygons
+* Moves bird, controls gravity/jumping with a gravity value
+Pipe:
+* Graphically represent pipes, using Rectangles
+* Controls constant speed movement
+
+evolution Classes:
+* All classes in evolution perform the same functions as the classes in flappybird, plus some addition function
+* I will list extra functions/utility
+App: N/A
+PaneOrganizer:
+* Contains a number of extra labels, representing various extra statistics
+Game:
+* Contains a list of the best 3 birds from the last generation
+* Uses the weights from those birds, mutated a small amount, and passes them on to new birds
+* Passes input values onto the birds each keyFrame, birds use those values to make decisions
+Bird:
+* Bird takes in weights determined by the Game class, and after some multiplication, creates an output
+* If that output is over a certain threshold, the Bird jumps
+
+DESIGN CHOICES:
+I chose to import the App classes of projects, rather than their PaneOrganizers, because it allowed for maximum
+abstraction and extensibility. Because I used App classes, I separated my flappybird, twoplayerflappybird, and
+evolution into separate projects. It made the code far less complex, and far easier to work with, by having them as
+separate projects entirely. I also chose to allow my arcade to continue running in the background, even when
+a game is launched, so that I could train my birds in the background of whatever else I wanted to play. If I wanted
+the arcade window to close, I could hide the stage on launch, and re-launch the arcade window when a back button
+is pressed. This method also allowed high score to be saved, even when the game is closed.
+
+In evolution, I chose to have my birds continue to generate with complete randomness, until they got past the first
+pipe. In most cases, this allowed for the birds to learn much faster in the first few generations.
+
+The "P" key pauses all games.
+
+KNOWN BUGS:
+* None
+
+DEBUGGING COLLABORATORS:
+* None

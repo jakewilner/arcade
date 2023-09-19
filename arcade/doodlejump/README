@@ -1,0 +1,64 @@
+Overview:
+This program contains an App class, which contains a PaneOrganizer, which mainly controls visual elements.
+That PaneOrganizer sets up a logic class, Doodle, which controls most of the other logic, and contains various
+instances of other classes.
+
+App:
+Contains and sets up a scene and PaneOrganizer.
+
+PaneOrganizer:
+Sets up the main game panes, labels, button, etc.
+Renders all above objects visually in the main pane.
+
+Doodle:
+The main logic class. Contains an instance of Character and an ArrayList of Platforms of various types (Green, Red,
+Blue, Black). Associated with the central game Pane and the score Label. Contains the vertical movement vector, that
+controls both the vertical movement of the platforms and character, depending on the value of that vector and the
+position of the character. This class contains the timeline and keyframe, and responds to collisions with platforms.
+Contains a few accessor and mutator methods for other classes (mainly Character) to use.
+
+Character:
+This class is associated with the central game Pane and the Doodle class. It creates a rectangle and adds it to the
+game Pane graphically. This class also responds to key inputs and checks for collisions, and checks for the type of
+platform it collided with. It also contains an accessor method that returns the Y-position.
+
+
+Design Choices:
+There are more than one keyframes within the timeline, which is normally would be an issue with design;
+
+Platform:
+This class is associated with the game Pane so that you can add the rectangle platform graphically onto the screen.
+This class contains an instance of a Rectangle, that appears on the screen and that the character is able to collide
+off of and bounce up (logic for this is in the doodle class). The methods of this class include randomly positioning
+the platforms that spawn in the based on the position of the previous platform, a method to move the rectangles
+logically and graphically on the screen, and a bunch of accessors and mutators that can change the properties of the
+class or subclasses. (Note there are some methods that are essentially psuedo methods that are overridden by the
+subclasses such as the isGreen, isRed, and disappear methods).
+
+Platform Subclasses (GreenPlatform, BluePlatform, BlackPlatform, and RedPlatform):
+These are subclasses of the platforms, each with their own different properties that differentiate themselves from
+one another. Each of them have their own specific color (set in their constructor by the setColor method) and they
+are associated with the gamePane so that they can be added graphically (the blue platform and the red platform are
+also associated with the doodle class because they have a more complicated mechanic that requires the timeline or being
+removed graphically). Black platforms don't do anything special aside from allowing the character to jump on them.
+Red platforms disappear graphically and logically when they are bounced upon. Green platforms allow for a larger
+bounce for the character. And the blue platform move back and forth according to the timeline. There are some boolean
+methods such as the isGreen or isRed method that aree used in the doodle class to differentiate their properties.
+
+Design Choices: There are more than one keyframes within the timeline, which is normally would be an issue with design;
+however, this accounts for the all of the instances of the blue platform. The method that accounts for all of the
+keyframes is within the doodle method, and because the movement of the bluePlatform only within the BluePlatform
+class, meaning that only a platform can't access this method. This means that in order to ensure only BluePlatforms
+move upon instantiation, they must have their own keyframe within their own class that only moves that specific
+platform.
+We also contain the acceleration vectors in the Doodle class, rather than in Character/Platform, because both
+Character and Platform use the same vector. This allows the decision for platform movement/character movement to be
+controlled by a boolean, adjusted by Y position and the vertical acceleration vector.
+The horizontal movement of the character is controlled by flag booleans, that change value on key press and key
+release.
+
+Known Bugs: None
+
+Debugging Collaborators: None
+
+Hours: 7
